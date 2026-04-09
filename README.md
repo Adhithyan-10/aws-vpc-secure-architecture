@@ -158,10 +158,10 @@ aws-vpc-secure-architecture/
 
 ---
 
-## 📘 Documentation
+## 📄 Documentation
 
-👉 Detailed explanation available here:
-`documentation/AWS-Secure-VPC-Architecture-main.pdf`
+👉 Detailed explanation available here:  
+🔗 [View Full Project Documentation (PDF)](documentation/AWS-Secure-VPC-Architecture-main.pdf)
 
 ---
 
