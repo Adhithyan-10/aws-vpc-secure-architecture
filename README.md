@@ -161,7 +161,7 @@ aws-vpc-secure-architecture/
 ## 📘 Documentation
 
 👉 Detailed explanation available here:
-`documentation/AWS-Secure-VPC-Architecture.pdf`
+`documentation/AWS-Secure-VPC-Architecture-main.pdf`
 
 ---
 
@@ -221,7 +221,8 @@ Give this repo a ⭐ and feel free to connect!
 
 ## 👨‍💻 Author
 
-**Adhithyan Sivaraman T**
+**Adhithyan Sivaraman T**  
+
 🚀 Aspiring Cloud & DevOps Engineer
 
 📬 Open to collaborate on cloud projects, DevOps setups, and real-world system design implementations.
