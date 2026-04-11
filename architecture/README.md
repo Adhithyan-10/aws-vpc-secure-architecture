@@ -74,7 +74,7 @@ Private EC2 → NAT Gateway → Internet
 
 ## 🖼️ Architecture Diagram
 
-![Architecture Diagram](Architecture_dia_main.png)
+![Architecture Diagram](Architecture_dia_main1.png)
 
 ---
 
