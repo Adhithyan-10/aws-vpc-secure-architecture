@@ -8,9 +8,9 @@
 
 Designed and implemented a **secure, production-grade AWS VPC architecture** that enforces:
 
-* Network isolation
-* Controlled access
-* Minimal attack surface
+- Network isolation  
+- Controlled access  
+- Minimal attack surface  
 
 This project demonstrates **real-world cloud engineering practices**, including secure networking, system design, and hands-on debugging.
 
@@ -22,15 +22,15 @@ Default AWS setups often expose resources directly to the internet.
 
 ### ❌ Issues:
 
-* Backend systems publicly accessible
-* No controlled SSH access
-* High attack surface
+- Backend systems publicly accessible  
+- No controlled SSH access  
+- High attack surface  
 
 ### ✅ Solution:
 
-* Private subnet for backend isolation
-* Bastion host for secure access
-* NAT Gateway for outbound-only connectivity
+- Private subnet for backend isolation  
+- Bastion host for secure administrative access  
+- NAT Gateway for outbound-only connectivity  
 
 ---
 
@@ -43,79 +43,93 @@ Default AWS setups often expose resources directly to the internet.
 ## ⚙️ Core Architecture Components
 
 | Component                  | Purpose                             |
-| -------------------------- | ----------------------------------- |
-| **VPC (10.0.0.0/16)**      | Isolated network environment        |
-| **Public Subnet**          | Internet-facing resources           |
-| **Private Subnet**         | Secure backend (no public IP)       |
-| **Internet Gateway (IGW)** | Enables inbound & outbound internet |
-| **NAT Gateway**            | Allows outbound-only internet       |
-| **Bastion Host**           | Secure SSH access point             |
-| **EC2 Instances**          | Compute layer                       |
+|--------------------------|-------------------------------------|
+| **VPC (10.0.0.0/16)**     | Isolated network environment        |
+| **Public Subnet**         | Internet-facing resources           |
+| **Private Subnet**        | Secure backend (no public IP)       |
+| **Internet Gateway (IGW)**| Enables inbound & outbound internet |
+| **NAT Gateway**           | Allows outbound-only internet       |
+| **Bastion Host**          | Secure SSH access point             |
+| **EC2 Instances**         | Compute layer                       |
 
 ---
 
 ## 🔁 Architecture Flow
 
+### 🌐 User Access (Public Traffic)
+
 ```
-User → Internet → IGW → Bastion Host (Public EC2)
-                          ↓
-                    Private EC2
-                          ↓
-                 NAT Gateway → Internet
+User → Internet → Internet Gateway → Web Server EC2
 ```
 
-### 🔐 Key Security Behavior:
+- Only HTTP/HTTPS traffic is allowed  
+- Bastion Host is NOT exposed to users  
 
-* Private EC2 ❌ NOT accessible from internet
-* Outbound internet ✅ via NAT Gateway
-* SSH access ✅ only through Bastion
+---
+
+### 🔐 Administrative Access (Secure SSH)
+
+```
+Admin → Bastion Host → Private EC2
+```
+
+- SSH (Port 22) access  
+- Restricted via Security Groups (Admin IP only)  
+- Bastion acts as a secure jump server  
+
+---
+
+### 🔒 Private Instance Internet Access
+
+```
+Private EC2 → NAT Gateway → Internet
+```
+
+- Outbound-only connectivity  
+- Used for updates, package installs, API calls  
 
 ---
 
 ## 🔒 Security Design
 
-* No public IP for private instances
-* Bastion host acts as single entry point
-* Security groups restrict SSH access
-* Route tables enforce subnet isolation
+- No public IP for private instances  
+- Bastion host acts as single entry point  
+- Security groups restrict SSH access  
+- Route tables enforce subnet isolation  
 
 ### 🧩 Why Not Direct Public Access?
 
-* Increases attack surface
-* Violates least privilege principle
-* Not suitable for production environments
+- Increases attack surface  
+- Violates least privilege principle  
+- Not suitable for production environments  
 
 ---
 
 ## 🛠️ Implementation Highlights
 
-* Created custom VPC with CIDR planning
-* Configured public & private subnets
-* Attached Internet Gateway
-* Set up NAT Gateway with Elastic IP
-* Deployed Bastion Host for SSH access
-* Configured route tables for traffic control
+- Created custom VPC with CIDR planning  
+- Configured public & private subnets  
+- Attached Internet Gateway  
+- Set up NAT Gateway with Elastic IP  
+- Deployed Bastion Host for SSH access  
+- Configured route tables for traffic control  
 
 ---
 
 ## 🐞 Debugging & Real Experience
 
 ### Issue:
-
-SSH connection failed due to permission error
+SSH connection failed due to permission error  
 
 ### Root Cause:
-
-Incorrect key file permissions
+Incorrect key file permissions  
 
 ### Fix:
-
 ```bash
 chmod 400 key.pem
 ```
 
 ### Commands Used:
-
 ```bash
 ssh -i key.pem ec2-user@bastion-ip
 ssh -i key.pem ec2-user@private-ip
@@ -127,10 +141,10 @@ ssh -i key.pem ec2-user@private-ip
 
 ## ✅ Validation & Proof
 
-* Private EC2 → `ping google.com` ✅
-* NAT Gateway working ✅
-* Bastion SSH access working ✅
-* Private EC2 not publicly accessible ✅
+- Private EC2 → `ping google.com` ✅  
+- NAT Gateway working ✅  
+- Bastion SSH access working ✅  
+- Private EC2 not publicly accessible ✅  
 
 💡 **Core Guarantee:**
 
@@ -169,22 +183,22 @@ aws-vpc-secure-architecture/
 
 Refer to the `screenshots/` folder for:
 
-* VPC setup
-* Subnet configuration
-* Route tables
-* NAT Gateway
-* Bastion SSH
-* Validation proof
+- VPC setup  
+- Subnet configuration  
+- Route tables  
+- NAT Gateway  
+- Bastion SSH  
+- Validation proof  
 
 ---
 
 ## 🎯 Key Learnings
 
-* Difference between IGW and NAT Gateway
-* Public vs Private subnet architecture
-* Route tables control network flow
-* Bastion host enhances security
-* Real-world AWS networking implementation
+- Difference between IGW and NAT Gateway  
+- Public vs Private subnet architecture  
+- Route tables control network flow  
+- Bastion host enhances security  
+- Real-world AWS networking implementation  
 
 ---
 
@@ -192,11 +206,11 @@ Refer to the `screenshots/` folder for:
 
 This project enables you to confidently explain:
 
-* Why private subnets are required
-* How NAT Gateway works
-* How Bastion improves security
-* How route tables control traffic
-* Real-world cloud architecture patterns
+- Why private subnets are required  
+- How NAT Gateway works  
+- How Bastion improves security  
+- How route tables control traffic  
+- Real-world cloud architecture patterns  
 
 ---
 
@@ -204,10 +218,10 @@ This project enables you to confidently explain:
 
 This project demonstrates:
 
-* ✅ Strong AWS fundamentals
-* ✅ Secure system design
-* ✅ Practical implementation
-* ✅ Debugging experience
+- ✅ Strong AWS fundamentals  
+- ✅ Secure system design  
+- ✅ Practical implementation  
+- ✅ Debugging experience  
 
 👉 Ready for **Cloud / DevOps Engineering roles**
 
@@ -223,7 +237,7 @@ Give this repo a ⭐ and feel free to connect!
 
 **Adhithyan Sivaraman T**  
 
-🚀 Aspiring Cloud & DevOps Engineer
+🚀 Aspiring Cloud & DevOps Engineer  
 
 📬 Open to collaborate on cloud projects, DevOps setups, and real-world system design implementations.
 
@@ -231,9 +245,9 @@ Give this repo a ⭐ and feel free to connect!
 
 ## 🤝 Let’s Connect
 
-* 📧 Email: [adhithyansivaraman@gmail.com](mailto:adhithyansivaraman@gmail.com)
-* 💻 GitHub: https://github.com/Adhithyan-10
-* 🔗 LinkedIn: https://www.linkedin.com/in/adhithyan-sivaraman-t-399b5b362
+- 📧 Email: adhithyansivaraman@gmail.com  
+- 💻 GitHub: https://github.com/Adhithyan-10  
+- 🔗 LinkedIn: https://www.linkedin.com/in/adhithyan-sivaraman-t-399b5b362  
 
 ---
 
