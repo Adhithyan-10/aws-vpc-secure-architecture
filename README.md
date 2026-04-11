@@ -36,7 +36,7 @@ Default AWS setups often expose resources directly to the internet.
 
 ## 🏗️ Architecture Diagram
 
-![Architecture](architecture/architecture-diagram.png)
+![Architecture](architecture/Architecture_dia_main1.png)
 
 ---
 
